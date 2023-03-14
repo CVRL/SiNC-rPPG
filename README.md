@@ -8,6 +8,7 @@
   <figcaption>Figure 1: Overview of the SiNC framework for rPPG compared with traditional supervised and unsupervised learning. Supervised and contrastive losses use distance metrics to the ground truth or other samples. Our framework applies the loss directly to the prediction by shaping the frequency spectrum, and encouraging variance over a batch of inputs. Power outside of the bandlimits is penalized to learn invariances to irrelevant frequencies. Power within the bandlimits is encouraged to be sparsely distributed near the peak frequency.</figcaption>
 </figure>
 
+## Contents
 * Training code is in src/train.py
 * Testing code is in src/test.py
 * Experiment config file is in src/args.py
