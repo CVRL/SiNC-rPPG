@@ -1,7 +1,7 @@
 import torch
 import torch.fft as fft
 
-EPSILON = 1e-5
+EPSILON = 1e-10
 BP_LOW=2/3
 BP_HIGH=3.0
 BP_DELTA=0.1
@@ -79,7 +79,8 @@ def IPR_SSL(freqs, psd, speed=None, low_hz=BP_LOW, high_hz=BP_HIGH, device=None)
         for b in range(batch_size):
             low_hz_b = low_hz * speed[b]
             high_hz_b = high_hz * speed[b]
-            ipr_losses[b] = _IPR_SSL(freqs, psd[b].view(1,-1), low_hz=low_hz_b, high_hz=high_hz_b, device=device)
+            psd_b = psd[b].view(1,-1)
+            ipr_losses[b] = _IPR_SSL(freqs, psd_b, low_hz=low_hz_b, high_hz=high_hz_b, device=device)
         ipr_loss = torch.mean(ipr_losses)
     return ipr_loss
 

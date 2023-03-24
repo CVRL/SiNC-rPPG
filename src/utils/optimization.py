@@ -41,7 +41,6 @@ def unsupervised_validation_step(model, data, criterions, device, fps, arg_obj, 
     frames = data[0].to(device)
     outputs = model(frames)
     freqs, psd = torch_power_spectral_density(outputs, fps=fps, normalize=False, bandpass=False)
-    criterions_str = arg_obj.validation_loss
     losses_dict = accumulate_validation_losses(freqs, psd, criterions, device, arg_obj)
     if return_pred:
         psd = normalize_psd(psd)
@@ -105,14 +104,16 @@ def accumulate_unsupervised_losses(freqs, psd, speed, criterions, device, arg_ob
 
 def accumulate_validation_losses(freqs, psd, criterions, device, arg_obj):
     criterions_str = arg_obj.validation_loss
+    low_hz = float(arg_obj.low_hz)
+    high_hz = float(arg_obj.high_hz)
     total_loss = 0.0
     losses_dict = {}
     if 'b' in criterions_str:
-        bandwidth_loss = criterions['bandwidth'](freqs, psd, device=device)
+        bandwidth_loss = criterions['bandwidth'](freqs, psd, low_hz=low_hz, high_hz=high_hz, device=device)
         total_loss = total_loss + (arg_obj.bandwidth_scalar*bandwidth_loss)
         losses_dict['bandwidth'] = bandwidth_loss
     if 's' in criterions_str:
-        sparsity_loss = criterions['sparsity'](freqs, psd, device=device)
+        sparsity_loss = criterions['sparsity'](freqs, psd, low_hz=low_hz, high_hz=high_hz, device=device)
         total_loss = total_loss + (arg_obj.sparsity_scalar*sparsity_loss)
         losses_dict['sparsity'] = sparsity_loss
     losses_dict['total'] = total_loss
