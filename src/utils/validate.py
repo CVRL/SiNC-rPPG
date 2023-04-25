@@ -159,12 +159,7 @@ def infer_over_dataset_testing(model, val_set, criterion, device, arg_obj, norme
     pred_waves = np.vstack(wave_preds)
     masks = np.vstack(masks)
     subjs = np.hstack(subjs)
-    orig_gt_waves = val_set.waves.copy()
-    orig_masks = val_set.masks.copy()
 
-    orig_lens = []
-    for i in range(len(orig_masks)):
-        orig_lens.append(orig_masks[i].sum())
     pred_waves = partition_by_subject(pred_waves, subjs)
     oadd_waves = overlap_add_all_subjects(pred_waves, arg_obj.fpc, arg_obj.step, normed=normed, hanning=True)
     masks = partition_by_subject(masks, subjs)
