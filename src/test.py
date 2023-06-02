@@ -24,8 +24,12 @@ def main():
     experiment_root = arg_obj.experiment_root
     print(experiment_root)
 
-    output_path = os.path.join('../predictions', experiment_root.split('/')[-1]+'.pkl')
-    log_path = os.path.join('../results', experiment_root.split('/')[-1]+'.txt')
+    prediction_dir = '../predictions'
+    log_dir = '../results'
+    os.makedirs(prediction_dir, exist_ok=True)
+    os.makedirs(log_dir, exist_ok=True)
+    output_path = os.path.join(prediction_dir, experiment_root.split('/')[-1]+'.pkl')
+    log_path = os.path.join(log_dir, experiment_root.split('/')[-1]+'.txt')
 
     #testing_datasets = ['ubfc_testing', 'pure_testing', 'ddpm_testing']
     testing_datasets = ['pure_testing']

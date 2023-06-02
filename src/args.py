@@ -25,9 +25,9 @@ def get_input():
                         type=int,
                         help='Whether to enter debugging mode, which decreases dataset size. [0]')
     parser.add_argument('--num_workers',
-                        default=4,
+                        default=3,
                         type=int,
-                        help='Number of cpus dedicated to preprocessing and feeding data. [4]')
+                        help='Number of cpus dedicated to preprocessing and feeding data. [3]')
     parser.add_argument('--continue_training',
                         default=0,
                         type=int,
@@ -37,9 +37,9 @@ def get_input():
                         type=int,
                         help='Whether to plot the PSDs from the validation set. [0]')
     parser.add_argument('--num_psd_plots',
-                        default=10,
+                        default=5,
                         type=int,
-                        help='Number of PSD plots. [10]')
+                        help='Number of PSD plots. [5]')
 
     ################### Losses ########################
     parser.add_argument('--losses',
@@ -134,9 +134,9 @@ def get_input():
                         type=int,
                         help='Step between clips when training. [60]')
     parser.add_argument('--epochs',
-                        default=40,
+                        default=200,
                         type=int,
-                        help='Number of epochs to train. [40]')
+                        help='Number of epochs to train. [200]')
 
     ################### Dataset Hyperparameters ########################
     parser.add_argument('--dataset',
