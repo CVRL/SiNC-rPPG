@@ -17,10 +17,10 @@
 * Loss functions are in src/utils/losses.py
 * Model architectures are in src/models/
 * Dataloaders are in src/datasets/
-* TODO: preprocessing code for UBFC-rPPG, DDPM, and HKBU-MARs.
+* TODO: preprocessing code for [UBFC-rPPG](https://sites.google.com/view/ybenezeth/ubfcrppg), [DDPM](https://cvrl.nd.edu/projects/data/#remote-pulse-detection-21), and [HKBU-MARs](https://rds.comp.hkbu.edu.hk/mars/).
 
 ## To Run
-1.) To prepare the data for training, download PURE and follow the steps in src/preprocessing/PURE
+1.) To prepare the data for training, [download PURE](https://www.tu-ilmenau.de/en/university/departments/department-of-computer-science-and-automation/profile/institutes-and-groups/institute-of-computer-and-systems-engineering/group-for-neuroinformatics-and-cognitive-robotics/data-sets-code/pulse-rate-detection-dataset-pure) and follow the steps in src/preprocessing/PURE
 
 2.) Train several models with:
 
@@ -31,7 +31,7 @@
 3.) Test the models with:
 
 ``
-scripts/test_PURE.sh
+./scripts/test_PURE.sh
 ``
 
 ## Notes
