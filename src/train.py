@@ -139,7 +139,6 @@ def main():
     print(f'validation loss for best model ({arg_obj.validation_loss}):', round(best_loss, 4))
     print('')
     print('Took %.3f seconds total.' % (time.time() - start))
-    logger.symlink_logfile()
     logger.close()
 
 

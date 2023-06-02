@@ -27,7 +27,8 @@ def main():
     output_path = os.path.join('../predictions', experiment_root.split('/')[-1]+'.pkl')
     log_path = os.path.join('../results', experiment_root.split('/')[-1]+'.txt')
 
-    testing_datasets = ['ubfc_testing', 'pure_testing', 'ddpm_testing']
+    #testing_datasets = ['ubfc_testing', 'pure_testing', 'ddpm_testing']
+    testing_datasets = ['pure_testing']
     fold_dirs = os.listdir(experiment_root)
 
     if load_pickle:
