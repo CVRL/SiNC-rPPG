@@ -1,10 +1,12 @@
 ## Preprocessing the PURE Dataset
 1.) To crop all of the videos to face landmarks from MediaPipe and downscale to 64x64 pixels for the 3D-CNNs:
+
 ``
 python make_dataset.py <path-to-downlaoded-PURE> <path-to-preprocessed-PURE>
 ``
 
 2.) Then make the metadata file which contains paths to all of the preprocessed data:
+
 ``
 python make_metadata.py <path-to-preprocessed-PURE> ../../datasets/metadata/PURE.csv
 ``
