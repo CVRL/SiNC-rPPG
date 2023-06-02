@@ -19,7 +19,7 @@ class TrainLogger:
         if global_step % self.print_iter == (self.print_iter - 1):
             for criterion in current_losses:
                 print(f'[{epoch}, {global_step:5d}] Train loss ({criterion}): {current_losses[criterion]:.6f}')
-                self.writer.add_scalar(f'Training loss ({criterion})', self.running_losses[criterion] / self.print_iter, step)
+                self.writer.add_scalar(f'Training loss ({criterion})', self.running_losses[criterion] / self.print_iter, global_step)
                 self.running_losses[criterion] = 0.0
 
     def log_validation(self, val_loss, epoch):

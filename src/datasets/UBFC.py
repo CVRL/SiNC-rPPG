@@ -34,9 +34,9 @@ class UBFC(VisionDataset):
 
     def load_data(self):
         if self.fps == 30:
-            meta = pd.read_csv('datasets/metadata/UBFC_meta.csv')
+            meta = pd.read_csv('datasets/metadata/UBFC.csv')
         elif self.fps == 90:
-            meta = pd.read_csv('datasets/metadata/UBFC_meta_90fps.csv')
+            meta = pd.read_csv('datasets/metadata/UBFC_90fps.csv')
         else:
             print('Invalid fps for UBFC loader. Must be in [30,90]. Exiting.')
             sys.exit(-1)

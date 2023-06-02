@@ -1,11 +1,10 @@
 import torch
-import torch.nn.functional as F
 import numpy as np
 import pandas as pd
 from torchvision.datasets.vision import VisionDataset
 import sys
-
 import datasets.transforms as transforms
+
 
 class PURE(VisionDataset):
     def __init__(self, split, arg_obj):
@@ -34,9 +33,9 @@ class PURE(VisionDataset):
 
     def load_data(self):
         if self.fps == 30:
-            meta = pd.read_csv('datasets/metadata/PURE_meta.csv')
+            meta = pd.read_csv('datasets/metadata/PURE.csv')
         elif self.fps == 90:
-            meta = pd.read_csv('datasets/metadata/PURE_meta_90fps.csv')
+            meta = pd.read_csv('datasets/metadata/PURE_90fps.csv')
         else:
             print('Invalid fps for PURE loader. Must be in [30,90]. Exiting.')
             sys.exit(-1)

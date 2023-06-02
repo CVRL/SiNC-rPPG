@@ -1,4 +1,5 @@
-# SiNC-rPPG:
+# SiNC-rPPG
+
 # Non-Contrastive Unsupervised Learning of Physiological Signals from Video
 
 ## Highlight paper in Conference on Computer Vision and Pattern Recognition (CVPR) 2023
