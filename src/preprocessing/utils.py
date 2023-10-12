@@ -71,11 +71,11 @@ def mediapipe_landmark_video(video_path):
     return all_lmrks
 
 
-def make_video_array_from_directory(vid_dir, lmrks):
+def make_video_array_from_directory(vid_dir, lmrks, w=OUT_IMG_WIDTH, h=OUT_IMG_HEIGHT, dtype=np.uint8):
     vid_len = len(lmrks)
     video_idx = 0
     frame_list = [os.path.join(vid_dir, f) for f in sorted(os.listdir(vid_dir))]
-    output_video = np.zeros((vid_len, OUT_IMG_HEIGHT, OUT_IMG_WIDTH, 3), dtype=np.uint8)
+    output_video = np.zeros((vid_len, h, w, 3), dtype=dtype)
     successful = True
 
     for frame_path in frame_list:
@@ -88,8 +88,6 @@ def make_video_array_from_directory(vid_dir, lmrks):
         else: #lmrks are shorter than video
             successful = False
             print('ERROR: Fewer landmarks than video frames, must relandmark.')
-            with open('../auxiliary/relandmark.txt', 'a+') as relandmark_file:
-                relandmark_file.write(f'{vid_path}\n')
             break
 
         lmrk = lmrk.astype(int)
@@ -99,26 +97,24 @@ def make_video_array_from_directory(vid_dir, lmrks):
         x1,y1,x2,y2 = square_bbox
         cropped = frame[y1:y2, x1:x2]
         if cropped.size < 1:
-            resized = np.zeros((OUT_IMG_HEIGHT, OUT_IMG_WIDTH, 3), dtype=cropped.dtype)
+            resized = np.zeros((h, w, 3), dtype=cropped.dtype)
         else:
-            resized = cv2.resize(cropped, (OUT_IMG_HEIGHT, OUT_IMG_WIDTH), interpolation=cv2.INTER_CUBIC)
+            resized = cv2.resize(cropped, (w, h), interpolation=cv2.INTER_CUBIC)
         output_video[video_idx] = resized
         video_idx += 1
 
     if video_idx < vid_len:
         successful = False
-        with open('../auxiliary/relandmark.txt', 'a+') as relandmark_file:
-            relandmark_file.write(f'{vid_path}\n')
         print(f'ERROR: Reached video idx {video_idx} while video was expected to be length {vid_len}.')
 
     return output_video, successful
 
 
-def make_video_array(vid_path, lmrks, dtype=np.uint8):
+def make_video_array(vid_path, lmrks, w=OUT_IMG_WIDTH, h=OUT_IMG_HEIGHT, dtype=np.uint8):
     vid_len = len(lmrks)
     cap = cv2.VideoCapture(vid_path, cv2.CAP_FFMPEG)
     video_idx = 0
-    output_video = np.zeros((vid_len, OUT_IMG_HEIGHT, OUT_IMG_WIDTH, 3), dtype=dtype)
+    output_video = np.zeros((vid_len, h, w, 3), dtype=dtype)
     successful = True
 
     while cap.isOpened():
@@ -132,8 +128,6 @@ def make_video_array(vid_path, lmrks, dtype=np.uint8):
             else: #lmrks are shorter than video
                 successful = False
                 print('ERROR: Fewer landmarks than video frames, must relandmark.')
-                with open('../auxiliary/relandmark.txt', 'a+') as relandmark_file:
-                    relandmark_file.write(f'{vid_path}\n')
                 break
 
             lmrk = lmrk.astype(int)
@@ -143,9 +137,9 @@ def make_video_array(vid_path, lmrks, dtype=np.uint8):
             x1,y1,x2,y2 = square_bbox
             cropped = frame[y1:y2, x1:x2]
             if cropped.size < 1:
-                resized = np.zeros((OUT_IMG_HEIGHT, OUT_IMG_WIDTH, 3), dtype=cropped.dtype)
+                resized = np.zeros((h, w, 3), dtype=cropped.dtype)
             else:
-                resized = cv2.resize(cropped, (OUT_IMG_HEIGHT, OUT_IMG_WIDTH), interpolation=cv2.INTER_CUBIC)
+                resized = cv2.resize(cropped, (w, h), interpolation=cv2.INTER_CUBIC)
             output_video[video_idx] = resized
             video_idx += 1
         else:
@@ -155,8 +149,6 @@ def make_video_array(vid_path, lmrks, dtype=np.uint8):
 
     if video_idx < vid_len:
         successful = False
-        with open('../auxiliary/relandmark.txt', 'a+') as relandmark_file:
-            relandmark_file.write(f'{vid_path}\n')
         print(f'ERROR: Reached video idx {video_idx} while video was expected to be length {vid_len}.')
 
     return output_video, successful
